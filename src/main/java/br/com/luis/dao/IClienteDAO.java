@@ -1,11 +1,14 @@
 package br.com.luis.dao;
 
+
+import br.com.luis.dao.generics.IGenericDAO;
 import br.com.luis.domain.Cliente;
 
-public interface IClienteDAO {
-    Boolean salvar(Cliente cliente);
+/**
+ * @author rodrigo.pires
+ *
+ */
+public interface IClienteDAO extends IGenericDAO<Cliente> {
 
-    Cliente buscarPorCPF(Long cpf);
 
-    void excluir(Long cpf);
 }

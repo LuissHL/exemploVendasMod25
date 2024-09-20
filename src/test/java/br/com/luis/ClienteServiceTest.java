@@ -3,6 +3,7 @@ package br.com.luis;
 import br.com.luis.dao.ClienteDaoMock;
 import br.com.luis.dao.IClienteDAO;
 import br.com.luis.domain.Cliente;
+import br.com.luis.exceptions.TipoChaveNaoEncontradaException;
 import br.com.luis.services.ClienteService;
 import br.com.luis.services.IClienteService;
 import org.junit.Assert;
@@ -18,7 +19,7 @@ public class ClienteServiceTest {
         iClienteService = new ClienteService(dao);
     }
     @Before
-    public void init() {
+    public void init() throws TipoChaveNaoEncontradaException{
         cliente = new Cliente();
         cliente.setCpf(123232323L);
         cliente.setNome("luis");
@@ -39,7 +40,7 @@ public class ClienteServiceTest {
     Assert.assertNotNull(clienteConsultado);
 }
     @Test
-    public void salvarCliente() {
+    public void salvarCliente() throws TipoChaveNaoEncontradaException {
         Boolean retorno = iClienteService.salvar(cliente);
         Assert.assertTrue(retorno);
     }
@@ -47,6 +48,14 @@ public class ClienteServiceTest {
     @Test
     public void excluirCliente() {
         iClienteService.excluir(cliente.getCpf());
+    }
+
+    @Test
+    public void alterarCliente() throws TipoChaveNaoEncontradaException{
+        cliente.setNome("Luis henrique");
+        iClienteService.alterar(cliente);
+
+        Assert.assertEquals("Luis henrique",cliente.getNome());
     }
 
 }

@@ -3,6 +3,7 @@ package br.com.luis;
 import br.com.luis.dao.ClienteDaoMock;
 import br.com.luis.dao.IClienteDAO;
 import br.com.luis.domain.Cliente;
+import br.com.luis.exceptions.TipoChaveNaoEncontradaException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +14,12 @@ public class ClienteDaoTest {
     private Cliente cliente;
 
     public ClienteDaoTest() {
+
         this.clienteDao = new ClienteDaoMock();
     }
 
     @Before
-    public void init() {
+    public void init() throws TipoChaveNaoEncontradaException {
         cliente = new Cliente();
         cliente.setCpf(123232323L);
         cliente.setNome("luis");
@@ -27,24 +29,32 @@ public class ClienteDaoTest {
         cliente.setEnd("end");
         cliente.setNumero(12);
 
-        clienteDao.salvar(cliente);
+        clienteDao.cadastrar(cliente);
     }
 
     @Test
     public void procurarCliente() {
-        Cliente clienteConsultado = clienteDao.buscarPorCPF(cliente.getCpf());
+        Cliente clienteConsultado = clienteDao.consultar(cliente.getCpf());
 
         Assert.assertNotNull(clienteConsultado);
     }
 
     @Test
-    public void salvarCliente() {
-       Boolean retorno = clienteDao.salvar(cliente);
+    public void salvarCliente() throws TipoChaveNaoEncontradaException{
+       Boolean retorno = clienteDao.cadastrar(cliente);
        Assert.assertTrue(retorno);
     }
 
     @Test
     public void excluirCliente() {
         clienteDao.excluir(cliente.getCpf());
+    }
+
+    @Test
+    public void alterarCliente() throws TipoChaveNaoEncontradaException{
+        cliente.setNome("Luis henrique");
+        clienteDao.alterar(cliente);
+
+        Assert.assertEquals("Luis henrique",cliente.getNome());
     }
 }
