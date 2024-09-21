@@ -1,33 +1,28 @@
 package br.com.luis.services;
 
-import br.com.luis.dao.ClienteDAO;
 import br.com.luis.dao.IClienteDAO;
+import br.com.luis.dao.generics.IGenericDAO;
+import br.com.luis.services.generics.GenericService;
 import br.com.luis.domain.Cliente;
 import br.com.luis.exceptions.TipoChaveNaoEncontradaException;
 
-public class ClienteService implements IClienteService {
+import java.util.Collection;
 
-    private IClienteDAO clienteDAO;
+public class ClienteService extends GenericService<Cliente, Long> implements IClienteService {
+
+
     public ClienteService(IClienteDAO clienteDAO) {
-        this.clienteDAO = clienteDAO;
+        super(clienteDAO);
+        //this.clienteDAO = clienteDAO;
     }
+
     @Override
     public Boolean salvar(Cliente cliente) throws TipoChaveNaoEncontradaException {
-       return clienteDAO.cadastrar(cliente);
+        return true;
     }
 
     @Override
     public Cliente buscarPorCPF(Long cpf) {
-        return clienteDAO.consultar(cpf);
-    }
-
-    @Override
-    public void excluir(Long cpf) {
-        clienteDAO.excluir(cpf);
-    }
-
-    @Override
-    public void alterar(Cliente cliente) throws TipoChaveNaoEncontradaException{
-       clienteDAO.alterar(cliente);
+       return this.dao.consultar(cpf);
     }
 }

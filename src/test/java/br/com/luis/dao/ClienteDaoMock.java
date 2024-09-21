@@ -2,8 +2,10 @@ package br.com.luis.dao;
 
 import br.com.luis.dao.IClienteDAO;
 import br.com.luis.domain.Cliente;
+import br.com.luis.domain.Persistente;
 import br.com.luis.exceptions.TipoChaveNaoEncontradaException;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 public class ClienteDaoMock implements IClienteDAO {
@@ -28,8 +30,7 @@ public class ClienteDaoMock implements IClienteDAO {
     public Cliente consultar(Long valor) {
         Cliente cliente = new Cliente();
         cliente.setCpf(valor);
-        return cliente;
-    }
+        return cliente;    }
 
     @Override
     public Collection<Cliente> buscarTodos() {

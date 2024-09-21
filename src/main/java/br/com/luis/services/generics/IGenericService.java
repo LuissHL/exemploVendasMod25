@@ -1,19 +1,16 @@
-package br.com.luis.dao.generics;
-
+package br.com.luis.services.generics;
 
 import br.com.luis.domain.Persistente;
 import br.com.luis.exceptions.TipoChaveNaoEncontradaException;
 
 import java.io.Serializable;
 import java.util.Collection;
-
 /**
  * @author luis.henrique
  *
  * Interface genérica para métodos de CRUD(Create, Read, Update and Delete)
  */
-public interface IGenericDAO <T extends Persistente, E extends Serializable>{
-
+public interface IGenericService<T extends Persistente, E extends Serializable> {
 
     /**
      * Método para cadastrar novos registro no banco de dados

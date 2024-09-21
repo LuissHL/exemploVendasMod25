@@ -8,7 +8,7 @@ import br.com.luis.domain.Cliente;
  * @author rodrigo.pires
  *
  */
-public interface IClienteDAO extends IGenericDAO<Cliente> {
+public interface IClienteDAO extends IGenericDAO<Cliente, Long> {
 
 
 }
